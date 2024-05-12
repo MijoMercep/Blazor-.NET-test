@@ -1,0 +1,89 @@
+@page "/zadatak"
+@using Zadatak3
+<PageTitle>Zadatak 3</PageTitle>
+
+<h1>Zadatak 3</h1>
+
+<h2>Mali dućan</h2>
+
+<div>
+    Naziv:
+    <input type="text" @bind="naziv">
+</div>
+
+<div>
+    Cijena po komadu:
+    <input type="number" @bind="cijena">
+</div>
+
+<div>
+    Vrsta:
+    <select @bind="vrsta">
+        <option value="">Odaberi vrstu</option>
+        <option value="hrana">hrana</option>
+        <option value="čišćenje">čišćenje</option>
+        <option value="tekstil">tekstil</option>
+        <option value="piće">piće</option>
+    </select>
+</div>
+
+<div>
+    <button @onclick="SpremiProizvod">Spremi</button>
+</div>
+
+<pre>
+    @ispis
+</pre>
+
+@code
+{
+    string ispis = "";
+     string naziv = "";
+    double cijena = 0;
+    string vrsta = "";
+    List<Proizvod> popis = new List<Proizvod>();
+    private void SpremiProizvod()
+    {   ispis = "";
+        Proizvod novi = new Proizvod();
+        if (naziv == "")
+        {
+            ispis = "Naziv proizvoda ne smije biti prazan.";
+            return;
+        }else{
+            novi.naziv = naziv;
+        }
+
+        if (cijena <= 0)
+        {
+            ispis = "Cijena po komadu mora biti veća od 0.";
+    
+            return;
+        }else{
+            novi.cijena = cijena;
+        }
+
+        
+        if (string.IsNullOrEmpty(vrsta))
+    {
+        novi.vrsta = "ostalo";
+    }
+    else
+    {
+        novi.vrsta = vrsta;
+    }
+        
+        // Ovdje možete dodati logiku za spremanje proizvoda u bazu podataka ili neki drugi oblik pohrane
+        popis.Add(novi);
+        
+        // provjeri naziv
+
+        // provjeri cijenu
+
+        // provjeri vrstu
+
+        // ispis
+        foreach(Proizvod p in popis){
+            ispis += p.naziv + " " + p.cijena + " " + p.vrsta + "\n";
+        }
+    }
+}
